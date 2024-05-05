@@ -1,0 +1,22 @@
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./tests/</directory>
+    </include>
+    <report>
+      <html outputDirectory="./reports" />
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="My Test Suite">
+      <directory>./tests/</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
