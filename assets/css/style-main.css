@@ -1,0 +1,19 @@
+/*#region RegionName*/
+
+/*#endregion */
+
+:root {
+    --mau-xanh-chu-dao: #31c491;
+
+}
+body{
+    background-color: #0b314f;
+    font-family: "Montserrat SemiBold", sans-serif;
+}
+
+.form-group input::placeholder {
+    color: rgba(124, 124, 124, 0.65);
+}
+input::placeholder{
+    color: rgba(124, 124, 124, 0.65) !important;
+}

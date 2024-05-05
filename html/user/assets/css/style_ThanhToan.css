@@ -1,0 +1,36 @@
+
+body {
+    background-color: #0b314f;
+    font-family: "Montserrat SemiBold", sans-serif;
+}
+.container {
+    padding-top: 2%;
+}
+
+.payment-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.payment-form .form-group {
+
+}
+
+.payment-form .form-control {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.payment-form .btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.payment-form .btn:hover {
+    background-color: #218838;
+}

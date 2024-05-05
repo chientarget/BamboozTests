@@ -1,0 +1,53 @@
+body {
+    background-color: #f2f4f7 !important;
+}
+
+.container {
+    padding-top: 10%;
+}
+
+.cau-hoi-thuong-gap {
+    background-color: #ffffff;
+    padding: 5%;
+    margin-bottom: 20px;
+    border-radius: 24px;
+    box-shadow: rgba(16, 24, 40, 0.06) 0px 1px 2px 0px, rgba(16, 24, 40, 0.1) 0px 1px 3px 0px;
+}
+
+.Title_Cauhoi {
+    color: #00558f;
+    font-family: "Roboto Medium", sans-serif;
+    font-size: 32px;
+}
+
+.Title_Danhgia{
+    color: var(--mau-xanh-chu-dao);
+    font-family: "Roboto Medium", sans-serif;
+    font-size: 32px;
+}
+.cau-hoi-thuong-gap p {
+    font-family: "Roboto", sans-serif;
+    padding-top: 0.5em;
+    font-size: 16px;
+}
+
+.danh-gia {
+    padding-left: 30px;
+}
+
+.danh-gia .form-danh-gia .btn-success {
+    float: right;
+}
+
+.form-danh-gia {
+    padding-top: 35%;
+
+}
+
+.form-danh-gias {
+    background-color: white;
+    padding: 5% 5% 10% 5%;
+    border: rgba(0, 163, 121, 0.44) solid 2px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}

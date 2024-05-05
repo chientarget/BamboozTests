@@ -1,0 +1,66 @@
+.body-Tracuu {
+    background-color: #fff;
+    padding: 5% 5% 10% 8%;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10%;
+}
+
+.title-form {
+    font-family: "Montserrat ExtraBold", sans-serif;
+    font-size: xx-large;
+    text-align: center;
+    color: var(--mau-xanh-chu-dao);
+}
+
+.title-item {
+    font-family: "Montserrat SemiBold", sans-serif;
+    color: #80a1af;
+}
+
+.row {
+    padding-bottom: 2%;
+}
+
+.label-kh {
+    font-family: "Montserrat ExtraBold", sans-serif;
+    color: #80a1af;
+}
+
+.header-inner-pages {
+    font-family: "Montserrat ExtraBold", sans-serif;
+    font-size: 24px;
+    color: var(--mau-xanh-chu-dao);
+}
+
+.row .col-md-2 {
+    color: #80a1af;
+}
+
+.row .col-md {
+    color: #7c7c7c;
+}
+
+.corner-image {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px; /* Khoảng cách từ mép phải và dưới của trang */
+}
+
+.form-control, .form-control:focus, .btn-outline-success {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.btn-outline-success{
+    border-radius: 25px;
+    background-color:var(--bs-btn-hover-bg) ;
+    color: #ffffff;
+
+}
+.input-group {
+    border: var(--mau-xanh-chu-dao) 1px solid;
+    border-radius: 25px;
+    padding: 2% 5%;
+}

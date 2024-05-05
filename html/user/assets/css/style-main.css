@@ -1,0 +1,64 @@
+/*#region RegionName*/
+
+/*#endregion */
+
+:root {
+    --mau-xanh-chu-dao: #31c491;
+
+}
+body{
+    background-color: #0b314f;
+    font-family: "Montserrat SemiBold", sans-serif;
+}
+
+.form-group input::placeholder {
+    color: rgba(124, 124, 124, 0.65);
+}
+input::placeholder{
+    color: rgba(124, 124, 124, 0.65) !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 0.001em;
+    margin-bottom: 0;
+    height: 0.1em;
+    user-select: none;
+}
+
+.custom-alert {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.custom-alert-content {
+    background-color: rgb(165, 94, 234);
+    margin: 20% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+    border-radius: 100px;
+    color: whitesmoke;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}

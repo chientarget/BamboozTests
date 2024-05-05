@@ -1,0 +1,56 @@
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1% 5% 1% 5%  ;
+    background-color: #0b314f!important;
+}
+
+#navbar-placeholder .nav-item {
+    color: #FFFFFF  ;
+    font-size: large;
+    width: 150px;
+    margin: 0.5em;
+}
+
+.navbar-nav a.nav-link:focus-within,
+.navbar-nav a.nav-link:hover {
+    color: var(--mau-xanh-chu-dao)  ;
+    cursor: pointer;
+}
+
+.nav-item .btn {
+    width: 150px ;
+}
+
+
+.page-container {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+}
+
+
+.nav-item #register-tab {
+    margin-left: 50px;
+}
+
+.nav-link{
+    color: whitesmoke;
+}
+
+.col-md-6 .btn-dang-nhap, .col-md-6 .btn-dang-ky {
+    background-color: #00a87d  ;
+    width: 100% ;
+    color: #FFFFFF;
+}
+
+.page-container input::placeholder {
+    color: rgba(71, 84, 103, 0.33);
+}
+

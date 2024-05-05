@@ -1,0 +1,38 @@
+
+.corner-image {
+    position: fixed;
+    bottom: 0;
+    left: -5%;
+    margin: 10px;
+    z-index: -100;
+}
+
+.row-kham-pha {
+    padding-top: 15%;
+}
+
+.card {
+    padding: 0px;
+    margin-left:3%;
+    border: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 16px !important;
+}
+.card img{
+    border-radius: 16px 16px 0 0  ;
+    max-height:250px;
+}
+.card-text {
+    font-family: "Open Sans", sans-serif;
+    color: #344054;
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+.card-body{
+    padding: 5%;
+}
+.card-title{
+    font-family: "Maven Pro SemiBold", sans-serif;
+    font-size: 1.5rem;
+    color: #00558f;
+}
