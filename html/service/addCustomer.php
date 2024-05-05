@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $customer->setPassword($password);
         $customer->setBirthDate("00/00/0000");  // Không có thông tin về ngày sinh trong yêu cầu của bạn
         $customer->setEmail($email);
-
+        $customer->setVisaCreated("false");
         // Thực hiện thêm khách hàng vào cơ sở dữ liệu
         // (Giả sử trong lớp Customer có một phương thức addCustomer())
         if ($customer->addCustomer()) {

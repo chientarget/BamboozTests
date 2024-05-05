@@ -12,7 +12,7 @@ if ($_POST) {
     $customer_email = $_POST['email'];
     $customer_address = $_POST['address'];
     $customer_CMND = $_POST['CMND'];
-    $customer_visaCreated = ($_POST['visaCreated'] === 'true');
+    $customer_visaCreated = 'false';
 
     $database = new Database();
     $db = $database->Connect();

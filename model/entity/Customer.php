@@ -151,56 +151,64 @@ class Customer{
         return $num;
     }
     // delete the customer and all associated bookings and invoices
-    public function delete($id){
-        $conn= Database::Connect();
-    
-        // Check if the customer has a visa created
-        $query = "SELECT visaCreated FROM Customer WHERE id = ?";
+  public function delete($id){
+    $conn= Database::Connect();
+
+    // Check if the customer exists
+    $query = "SELECT * FROM Customer WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(1, $id);
+    $stmt->execute();
+    if ($stmt->rowCount() == 0) {
+        throw new InvalidArgumentException("No customer found with the provided ID");
+    }
+
+    // Check if the customer has a visa created
+    $query = "SELECT visaCreated FROM Customer WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(1, $id);
+    $stmt->execute();
+    $visaCreated = $stmt->fetchColumn();
+
+    if ($visaCreated == 1) {
+        // The customer has a visa created, throw an exception
+        throw new Exception("The customer has a visa created and cannot be deleted");
+    }
+
+    // Start a transaction
+    $conn->beginTransaction();
+
+    try {
+        // Delete all invoices associated with the bookings of the customer
+        $query = "DELETE invoice FROM invoice INNER JOIN booking ON invoice.booking_id = booking.id WHERE booking.customer_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bindParam(1, $id);
         $stmt->execute();
-        $visaCreated = $stmt->fetchColumn();
-    
-        if ($visaCreated == 1) {
-            // The customer has a visa created, return an error message
-            return false;
 
-        }
+        // Delete all bookings associated with the customer
+        $query = "DELETE FROM booking WHERE customer_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
 
-        // Start a transaction
-        $conn->beginTransaction();
-    
-        try {
-            // Delete all invoices associated with the bookings of the customer
-            $query = "DELETE invoice FROM invoice INNER JOIN booking ON invoice.booking_id = booking.id WHERE booking.customer_id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(1, $id);
-            $stmt->execute();
-    
-            // Delete all bookings associated with the customer
-            $query = "DELETE FROM booking WHERE customer_id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(1, $id);
-            $stmt->execute();
-    
-            // Delete the customer
-            $query = "DELETE FROM Customer WHERE id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(1, $id);
-            $stmt->execute();
-    
-            // Commit the transaction
-            $conn->commit();
-    
-            return true;
-        } catch (Exception $e) {
-            // An error occurred, rollback the transaction
-            $conn->rollback();
-    
-            // Return the error message
-            return $e->getMessage();
-        }
+        // Delete the customer
+        $query = "DELETE FROM Customer WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+
+        // Commit the transaction
+        $conn->commit();
+
+        return true;
+    } catch (PDOException $e) {
+        // An error occurred, rollback the transaction
+        $conn->rollback();
+
+        // Throw the exception to be handled by the calling code
+        throw new Exception("Database error: " . $e->getMessage());
     }
+}
 
     function readOne(){
 
