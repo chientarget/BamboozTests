@@ -34,22 +34,19 @@ if ($_POST) {
     // Kiểm tra xem dữ liệu đã tồn tại chưa
     if ($customer->checkUsernameExistence()) {
         echo "Username đã tồn tại. Vui lòng sửa lại thông tin.";
-    }elseif(!$customer->isValidFullName()) {
-        echo "Full name không được chứa số hoăc ký tự đặc biệt";
-    }elseif(!$customer->isValidPassword()) {
+    } elseif (!$customer->isValidPassword()) {
         echo "Password cần chứa ít nhất 1 ký tự viết hoa  và một ký tự đặc biệt";
-    }
-    elseif(!$customer->isValidInput($customer->username, 'username') || !$customer->isValidInput($customer->fullName, 'fullName')) {
+    } elseif (!$customer->isValidInput($customer->username, 'username') || !$customer->isValidInput($customer->fullName, 'fullName')) {
         echo "Full name và Username không được chứa ký tự đặc biệt";
-    }elseif(!$customer->isValidPhone() && !$customer->isValidID()) {
+    } elseif (!$customer->isValidFullName()) {
+        echo "Full name không được chứa số hoăc ký tự đặc biệt";
+    } elseif (!$customer->isValidPhone() && !$customer->isValidID()) {
         echo "Số điện thoại và  CMND chỉ được chứa số";
-    }
-    elseif(!$customer->isValidPhone()) {
+    } elseif (!$customer->isValidPhone()) {
         echo "Số điện thoại chỉ được chứa số";
-    }elseif(!$customer->isValidID()) {
+    } elseif (!$customer->isValidID()) {
         echo "CMND chỉ được chứa số";
-    }
-     elseif ($customer->checkPhoneExistence()) {
+    } elseif ($customer->checkPhoneExistence()) {
         echo "Số điện thoại đã tồn tại. Vui lòng sửa lại thông tin.";
     } elseif ($customer->checkEmailExistence()) {
         echo "Email đã tồn tại. Vui lòng sửa lại thông tin.";
