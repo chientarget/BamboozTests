@@ -22,14 +22,19 @@ class AddCustomer_Test extends TestCase
 
     /**
      * @codeCoverageIgnore
+     * @throws Exception
      */
     protected function tearDown(): void
     {
-        $this->customer->delete($this->customer->getIdFromUsername());
+        $id = $this->customer->getIdFromUsername();
+        if ($id !== null) {
+            $this->customer->delete($id);
+        }
     }
 
     /**
      * @covers AddCustomer_Test::testAddCustomerSuccess
+     * @throws Exception
      */
     public function testAddCustomerSuccess(): void
     {
@@ -50,6 +55,7 @@ class AddCustomer_Test extends TestCase
 
     /**
      * @covers AddCustomer_Test::testAddCustomerWithNullData
+     * @throws Exception
      */
     public function testAddCustomerWithNullData(): void
     {

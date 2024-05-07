@@ -279,13 +279,11 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
-            .then(response => {
-                if (response.trim() === "Khách hàng đã được tạo.") {
-                    $('#message').html('<div class="alert alert-success">Khách hàng đã được tạo.</div>');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.text())
+                .then(response => {
+                    $('#message').html('<div class="alert alert-success" name="thognbao" >' + response.trim() + '</div>');
+                })
+                .catch(error => console.error('Error:', error));
         });
     </script>
     

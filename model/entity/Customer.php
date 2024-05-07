@@ -1,9 +1,9 @@
-
 <?php
 
-include_once (__DIR__ . '/../../connect/Database.php');
+include_once(__DIR__ . '/../../connect/Database.php');
 
-class Customer{
+class Customer
+{
     public $id;
     public $fullName;
     public $address;
@@ -19,102 +19,120 @@ class Customer{
     private $conn;
     private $table_name = "Customer";
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
         $this->conn = $db;
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
 
     }
 
     // Getter và setter cho $fullName
-    public function getFullName() {
+    public function getFullName()
+    {
         return $this->fullName;
     }
 
-    public function setFullName($fullName) {
+    public function setFullName($fullName)
+    {
         $this->fullName = $fullName;
     }
 
     // Getter và setter cho $address
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
     }
 
     // Getter và setter cho $phone
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
     }
 
     // Getter và setter cho $CMND
-    public function getCMND() {
+    public function getCMND()
+    {
         return $this->CMND;
     }
 
-    public function setCMND($CMND) {
+    public function setCMND($CMND)
+    {
         $this->CMND = $CMND;
     }
 
     // Getter và setter cho $visaCreated
-    public function getVisaCreated() {
+    public function getVisaCreated()
+    {
         return $this->visaCreated;
     }
 
-    public function setVisaCreated($visaCreated) {
+    public function setVisaCreated($visaCreated)
+    {
         $this->visaCreated = $visaCreated;
     }
 
     // Getter và setter cho $username
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
     // Getter và setter cho $password
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
     // Getter và setter cho $birthDate
-    public function getBirthDate() {
+    public function getBirthDate()
+    {
         return $this->birthDate;
     }
 
-    public function setBirthDate($birthDate) {
+    public function setBirthDate($birthDate)
+    {
         $this->birthDate = $birthDate;
     }
 
     // Getter và setter cho $email
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
 
-
-
-
-    public static function readAll($from_record_num, $records_per_page){
-        $conn= Database::Connect();
+    public static function readAll($from_record_num, $records_per_page)
+    {
+        $conn = Database::Connect();
         $query = "SELECT
             Customer.id AS customer_id,
             Customer.fullName,
@@ -139,20 +157,27 @@ class Customer{
 
 
     // used for paging products
-    public function countAll(){
-        $conn= Database::Connect();
+    public function countAll()
+    {
+        $conn = Database::Connect();
         $query = "SELECT id FROM Customer";
 
-        $stmt = $conn->prepare( $query );
+        $stmt = $conn->prepare($query);
         $stmt->execute();
 
         $num = $stmt->rowCount();
 
         return $num;
     }
+
     // delete the customer and all associated bookings and invoices
-    public function delete($id){
-        $conn= Database::Connect();
+    public function delete($id)
+    {
+        $conn = Database::Connect();
+
+        if (empty($id)) {
+            throw new InvalidArgumentException("No customer found with the provided CMND.");
+        }
 
         // Check if the customer has a visa created
         $query = "SELECT visaCreated FROM Customer WHERE id = ?";
@@ -162,9 +187,7 @@ class Customer{
         $visaCreated = $stmt->fetchColumn();
 
         if ($visaCreated == 1) {
-            // The customer has a visa created, return an error message
             return false;
-
         }
 
         // Start a transaction
@@ -202,9 +225,11 @@ class Customer{
         }
     }
 
-    function readOne(){
 
-        $conn= Database::Connect();
+    function readOne()
+    {
+
+        $conn = Database::Connect();
         $query = "SELECT
                         id, fullName, address, phone,CMND,visaCreated,username,password,birth_date,email
                     FROM
@@ -214,7 +239,7 @@ class Customer{
                     LIMIT
                         0,1";
 
-        $stmt = $conn->prepare( $query );
+        $stmt = $conn->prepare($query);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
 
@@ -232,8 +257,9 @@ class Customer{
         $this->email = $row['email'];
     }
 
-    function update(){
-        $conn= Database::Connect();
+    function update()
+    {
+        $conn = Database::Connect();
 
         $query = "UPDATE
                         Customer
@@ -253,16 +279,16 @@ class Customer{
         $stmt = $conn->prepare($query);
 
         // posted values
-        $this->fullName=htmlspecialchars(strip_tags($this->fullName));
-        $this->address=htmlspecialchars(strip_tags($this->address));
-        $this->phone=htmlspecialchars(strip_tags($this->phone));
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $this->birthDate=htmlspecialchars(strip_tags($this->birthDate));
-        $this->username=htmlspecialchars(strip_tags($this->username));
-        $this->password=htmlspecialchars(strip_tags($this->password));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->CMND=htmlspecialchars(strip_tags($this->CMND));
-        $this->visaCreated=htmlspecialchars(strip_tags($this->visaCreated));
+        $this->fullName = htmlspecialchars(strip_tags($this->fullName));
+        $this->address = htmlspecialchars(strip_tags($this->address));
+        $this->phone = htmlspecialchars(strip_tags($this->phone));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->birthDate = htmlspecialchars(strip_tags($this->birthDate));
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $this->password = htmlspecialchars(strip_tags($this->password));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->CMND = htmlspecialchars(strip_tags($this->CMND));
+        $this->visaCreated = htmlspecialchars(strip_tags($this->visaCreated));
 
 
         // bind parameters
@@ -279,7 +305,7 @@ class Customer{
         $stmt->bindParam(':visaCreated', $visaCreatedValue, PDO::PARAM_INT);
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
@@ -287,8 +313,9 @@ class Customer{
 
     }
 
-    function create() {
-        $conn= Database::Connect();
+    function create()
+    {
+        $conn = Database::Connect();
         $query = "INSERT INTO
                         Customer
                     SET
@@ -316,39 +343,37 @@ class Customer{
         $stmt->bindParam(':visaCreated', $visaCreatedValue, PDO::PARAM_INT);
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
         return false;
     }
 
-    public function searchCustomer($search_term) {
+    public function searchCustomer($search_term)
+    {
         $conn = Database::Connect();
-        // select query
-        $query = "SELECT
-                        id, fullName, birth_date, email, phone, visaCreated
-                    FROM
-                        Customer
-                    WHERE
-                        CMND like ?";
 
-        // prepare query statement
+        if (is_null($search_term) || empty($search_term) || !preg_match('/^[0-9]+$/', $search_term)) {
+            return [];
+        }
+
+        $query = "SELECT id, fullName, birth_date, email, phone, visaCreated FROM Customer WHERE CMND like ?";
+
         $stmt = $conn->prepare($query);
-
-        // bind variable values
         $search_term = "%{$search_term}%";
         $stmt->bindParam(1, $search_term);
-
-        // execute query
         $stmt->execute();
-
-        // return values from database
-        return $stmt;
+        $result = $stmt->fetchAll();
+        if (empty($result)) {
+            return [];
+        }
+        return $result;
     }
 
-    public function search($search_term, $from_record_num, $records_per_page) {
-        $conn= Database::Connect();
+    public function search($search_term, $from_record_num, $records_per_page)
+    {
+        $conn = Database::Connect();
         // select query
         $query = "SELECT
                         id, fullName, birth_date, email, phone, visaCreated
@@ -377,8 +402,9 @@ class Customer{
         return $stmt;
     }
 
-    public function countAll_BySearch($search_term) {
-        $conn= Database::Connect();
+    public function countAll_BySearch($search_term)
+    {
+        $conn = Database::Connect();
         // select query
         $query = "SELECT
                         COUNT(*) as total_rows
@@ -400,8 +426,9 @@ class Customer{
         return $row['total_rows'];
     }
 
-    public function sort($column) {
-        $conn= Database::Connect();
+    public function sort($column)
+    {
+        $conn = Database::Connect();
         // Sử dụng PDO để thực hiện truy vấn sắp xếp
         $query = "SELECT * FROM Customer ORDER BY $column";
         $stmt = $conn->prepare($query);
@@ -410,7 +437,8 @@ class Customer{
         return $stmt;
     }
 
-    public static function getCustomerById($customer_id) {
+    public static function getCustomerById($customer_id)
+    {
         $conn = Database::Connect();
         $query = "SELECT
                         id,
@@ -434,6 +462,7 @@ class Customer{
 
         return $stmt;
     }
+
     #region Chiến
     function readOne2()
     {
@@ -511,7 +540,8 @@ class Customer{
     }
 
 
-    public function getIdFromUsername() {
+    public function getIdFromUsername()
+    {
         $sql = "SELECT id FROM Customer WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$this->username]);
@@ -519,7 +549,8 @@ class Customer{
         return $result ? $result['id'] : null;
     }
 
-    public function isValidInput($input, $type) {
+    public function isValidInput($input, $type)
+    {
         // Check if input contains any special characters
         if ($type == 'fullName') {
             return preg_match('/^[\p{L}\s]+$/u', $input);
@@ -528,13 +559,15 @@ class Customer{
         }
     }
 
-    public function isValidFullName() {
+    public function isValidFullName()
+    {
         // Check if full name contains any numbers or special characters
         return preg_match('/^[\p{L}\p{M}*\s\p{P}]+$/u', $this->fullName);
     }
 
 
-    public function countAllCustomers() {
+    public function countAllCustomers()
+    {
         $conn = Database::Connect();
         $query = "SELECT COUNT(*) as total FROM Customer";
         $stmt = $conn->prepare($query);
@@ -544,7 +577,8 @@ class Customer{
     }
 
     // check trùng dữ liệu
-    public function checkUsernameExistence() {
+    public function checkUsernameExistence()
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE username = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->username);
@@ -552,7 +586,8 @@ class Customer{
         return $stmt->rowCount() > 0;
     }
 
-    public function checkPhoneExistence() {
+    public function checkPhoneExistence()
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE phone = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->phone);
@@ -560,22 +595,26 @@ class Customer{
         return $stmt->rowCount() > 0;
     }
 
-    public function isValidPhone() {
+    public function isValidPhone()
+    {
         // Check if phone number only contains numbers
         return preg_match('/^[0-9]+$/', $this->phone);
     }
-    
-    public function isValidID() {
+
+    public function isValidID()
+    {
         // Check if ID only contains numbers
         return preg_match('/^[0-9]+$/', $this->CMND);
     }
 
-    public function isValidPassword() {
+    public function isValidPassword()
+    {
         // Check if password is at least 8 characters long, contains at least one uppercase letter and one special character
         return preg_match('/^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/', $this->password);
     }
 
-    public function checkEmailExistence() {
+    public function checkEmailExistence()
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->email);
@@ -583,7 +622,8 @@ class Customer{
         return $stmt->rowCount() > 0;
     }
 
-    public function checkCMNDExistence() {
+    public function checkCMNDExistence()
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE CMND = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->CMND);
@@ -594,4 +634,5 @@ class Customer{
 
 #endregion
 }
+
 ?>
